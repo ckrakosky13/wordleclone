@@ -1,67 +1,86 @@
-//steps:
-//get user input through on-screen keyboard or user's keyboard, display in squares in rows
-//check if word is in accepted words list
-//  if word is good, display correct states of letters in squares
-//      states: correct, almost, incorrect. drives colors of backgrounds of squares and keys on on-screen keyboard
-//  
-//  if word is bad, display msg that word is not accepted and keep them continuing to try again
+let currentGuessRow = 0;
+const container = document.getElementById("container");
+containersChildren = document.getElementsByClassName("container").children;
+console.log(containersChildren, container.children);
+let targetword = "afdas";
+let guess = "";
+let wordLength = 5;
+let guessLength = 3;
+function Initialize() {
+
+}
+
+
 function ValidKey(key) {
     return (key ==="Backspace" || key ==="Enter") || (key.length === 1 && /^[a-zA-Z]+$/.test(key));
 }
 
 function Guess(guess, targetword) {
-    if (guess === targetword) {
-        console.log("You guessed it! Add maybe a status code to return or idk yet.");
-        return 0;
-    }
-    //it works but copying the code from the internet makes it harder to read
     for (let i = 0; i < targetword.length; i++) {
         console.log(guess[i]);
         if (targetword.includes(guess[i])) {
             if (targetword[i] === guess[i]) {
-                console.log("Correct!");
+                //TODO: need to check count of this as well as to not assign good if only < this number of this letter exists.
+                container.children.item(currentGuessRow).children.item(i).classList.add("correct");
             } else {
-                console.log("Almost!");
+                container.children.item(currentGuessRow).children.item(i).classList.add("almost");
             }
         }else{
-            console.log("Incorrect!");
+            container.children.item(currentGuessRow).children.item(i).classList.add("bad");
         }
     }
-
+    if (guess === targetword) {
+        return guess;
+    }
+    currentGuessRow+=1;
+    return "";
 }
 
 
 
-//change later with dynamic square creation
-let targetword = "afdas";
-let guess = "";
-let wordLength = 5;
-let currentGuessRow = 0;
+function createRows(){
+    for (let j=0; j<wordLength; j++){
+        const newDiv = document.createElement("div");
+        newDiv.classList.add("row");
+        for (let i = 0; i < wordLength; i++) {
+            const newSquare = document.createElement("div");
+            newSquare.classList.add("square");
+            const newTextNode = document.createTextNode("");
+            newSquare.appendChild(newTextNode);
+            newDiv.appendChild(newSquare);
+        }
+        container.appendChild(newDiv);
+    }
+}
+createRows();
 document.addEventListener('keyup', (event) => {
     var key = event.key;
-
     if (ValidKey(key)){
+        
         if (guess.length < wordLength){
             if (key === "Backspace"){
-                if (guess.length > 0) guess = guess.substring(0, guess.length - 1);
+                if (guess.length > 0) {
+                    guess = guess.substring(0, guess.length - 1);
+                    container.children.item(currentGuessRow).children.item(guess.length).innerText = "";
+                }
             }
             else if (key === "Enter") console.log("Word too short!!! Add message and change css class or something.");
-            else guess += key;
+            else{
+                
+                let upperKey = key.toUpperCase();
+                guess += key;
+                container.children.item(currentGuessRow).children.item(guess.length - 1).innerText = upperKey;
+            } 
         } 
         else{
-            if (key === "Enter") Guess(guess, targetword);
-            if (key === "Backspace") guess = guess.substring(0, guess.length - 1);
+            if (key === "Enter") guess = Guess(guess, targetword);
+            if (key === "Backspace") {
+                guess = guess.substring(0, guess.length - 1);
+                container.children.item(currentGuessRow).children.item(guess.length).innerText = "";
+            }
+            
     }
     console.log(guess);
-        //im a robot, so I don't need to check if the word is in the list of accepted words
-        //find currentguessrow and select it.
-        //var currentGuessRow = document.getElementById("currentGuessRow");
-        //maybe just keep track of input up to length of currentguessrow/global word length
-        //if currentguessrow is full, dont add to it.
-        //else find next empty square and add to its contents.
-        //if submitted or enter pressed, do word check. 
-        //check length of word, check if word is in accepted words list
-        //display proper square states based on letters in guess and targetword
     }
 
 

@@ -45,13 +45,17 @@ body {
     vertical-align: bottom;
 }
 
-.square:hover{
-    background-color: var(--color-state-almost-correct);
+.square.correct{
+    background-color: var(--color-state-correct);
     border-color: var(--color-state-almost-correct);
 }
 .square.bad{
     background-color: var(--color-state-wrong);
     border-color: var(--color-state-wrong);
+}
+.square.almost{
+    background-color: var(--color-state-almost-correct);
+    border-color: var(--color-state-almost-correct);
 }
 
 .square.hascontent{
@@ -59,9 +63,7 @@ body {
     border: 1px solid black;
 }
 
-.content{
-    
-}
+
 
 
 
