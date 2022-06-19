@@ -63,6 +63,19 @@ body {
     border: 1px solid black;
 }
 
+#message{
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: .5em;
+    width: 40%;
+    height: 10%;
+    margin: 0;
+    position: absolute;
+    top: 15%;
+    left: 30%;
+    text-align: center;
+}
+
 
 
 
