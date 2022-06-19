@@ -2,7 +2,7 @@
     --color-primary-background: white;
     --color-state-correct: #3cc33c;
     --color-state-almost-correct: #f4f44c;
-    --color-state-wrong: grey;
+    --color-state-wrong: red;
     --color-square-border: grey;
 }
 
@@ -38,16 +38,33 @@ body {
     width: 3.8em;
     height: 3.8em;
     background-color: white;
-    margin: 0px auto;
+    margin: .1em .1em;
     display: inline-block;
     border: 1px solid grey;
+    text-align: center;
+    vertical-align: bottom;
 }
 
-.square:hover{
+.square.correct{
+    background-color: var(--color-state-correct);
+    border-color: var(--color-state-almost-correct);
+}
+.square.bad{
+    background-color: var(--color-state-wrong);
+    border-color: var(--color-state-wrong);
+}
+.square.almost{
     background-color: var(--color-state-almost-correct);
     border-color: var(--color-state-almost-correct);
 }
-.square:hover{
-    background-color: var(--color-state-correct);
-    border-color: var(--color-state-correct);
+
+.square.hascontent{
+    background-color: var(--color-primary-background);
+    border: 1px solid black;
 }
+
+
+
+
+
+
